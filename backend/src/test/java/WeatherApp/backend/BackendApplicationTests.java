@@ -1,10 +1,10 @@
-package com.example.WeatherApp;
+package WeatherApp.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WeatherAppApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
