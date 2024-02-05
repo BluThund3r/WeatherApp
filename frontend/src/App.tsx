@@ -1,7 +1,13 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Home from "./views/home/Home";
 import Login from "./views/login/Login";
 import Signup from "./views/signup/Signup";
@@ -12,9 +18,31 @@ import { Toaster } from "sonner";
 import { AppDispatch } from "./state/store";
 import { useDispatch } from "react-redux";
 import { refreshUserLoggedIn } from "./state/user/userSlice";
+import { isUserAdmin, isUserLoggedIn } from "./utils/userUtils";
+import { AdminDashboard } from "./views/admin/AdminDashboard";
+
+interface PrivateRouteProps {
+  children: React.ReactElement;
+  condition: boolean;
+  redirectPath: string;
+}
+
+const PrivateRoute: FC<PrivateRouteProps> = ({
+  children,
+  condition,
+  redirectPath,
+}) => {
+  const location = useLocation();
+
+  return condition ? children : <Navigate to={redirectPath} />;
+};
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn());
+  const [isAdmin, setIsAdmin] = useState(
+    isUserAdmin(localStorage.getItem("token"))
+  );
 
   useEffect(() => {
     dispatch(refreshUserLoggedIn());
@@ -30,9 +58,44 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/logout" element={<Logout />} />
+              <Route
+                path="/login"
+                element={
+                  <PrivateRoute condition={!isLoggedIn} redirectPath="/">
+                    <Login
+                      setIsLoggedIn={setIsLoggedIn}
+                      setIsAdmin={setIsAdmin}
+                    />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <PrivateRoute condition={!isLoggedIn} redirectPath="/">
+                    <Signup />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/logout"
+                element={
+                  <PrivateRoute condition={isLoggedIn} redirectPath="/">
+                    <Logout setIsLoggedIn={setIsLoggedIn} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute
+                    condition={isLoggedIn && isAdmin}
+                    redirectPath="/"
+                  >
+                    <AdminDashboard />
+                  </PrivateRoute>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

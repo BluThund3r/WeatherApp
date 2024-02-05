@@ -87,6 +87,14 @@ export default function Navbar() {
         </div>
       ) : null}
       <div className="buttons-wrapper">
+        {user.loggedIn ? (
+          <p
+            className="default-text-color"
+            style={{ textAlign: "center", fontWeight: "bold" }}
+          >
+            {user.username}
+          </p>
+        ) : null}
         {navBarButtonsBottom.map((button, index) => {
           if (button.show)
             return (

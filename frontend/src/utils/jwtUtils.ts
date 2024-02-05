@@ -16,13 +16,3 @@ export function decodeJWTToken(token: string) {
   const payloadDecoded = JSON.parse(atob(payload));
   return payloadDecoded;
 }
-
-export function isUserAdmin(token: string): boolean {
-  const payloadDecoded = decodeJWTToken(token);
-  return payloadDecoded["isAdmin"] as boolean;
-}
-
-export function getUsernameFromToken(token: string): string {
-  const payloadDecoded = decodeJWTToken(token);
-  return payloadDecoded["sub"] as string;
-}

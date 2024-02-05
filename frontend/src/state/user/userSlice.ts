@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiDomainName } from "../../configConsts";
 import { toast } from "sonner";
-import { getUsernameFromToken, isUserAdmin } from "../../utils/jwtUtils";
+import { getUsernameFromToken, isUserAdmin } from "../../utils/userUtils";
 
 interface UserState {
   loggedIn: boolean;

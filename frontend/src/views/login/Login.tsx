@@ -7,8 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
 import { LoginResponse, login } from "../../state/user/userSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { isUserAdmin } from "../../utils/userUtils";
 
-export default function Login() {
+interface LoginProps {
+  setIsLoggedIn: (arg0: boolean) => void;
+  setIsAdmin: (arg0: boolean) => void;
+}
+
+export default function Login({ setIsLoggedIn, setIsAdmin }: LoginProps) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -53,6 +59,8 @@ export default function Login() {
 
     dispatch(login(formData)).then((result: any) => {
       if (result.payload.token !== "") {
+        setIsLoggedIn(true);
+        setIsAdmin(isUserAdmin(result.payload.token));
         navigate("/");
       }
     });

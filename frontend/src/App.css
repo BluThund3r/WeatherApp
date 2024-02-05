@@ -28,11 +28,10 @@
   bottom: 0;
   left: 0;
   background-color: var(--default-background-color);
-  background: url("./images/cloudy_background.jpg");
+  background: url("./images/gradient_background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(5px);
 }
 
 .default-background * {
