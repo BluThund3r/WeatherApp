@@ -19,7 +19,10 @@ public class JwtUtils {
     private final JwtParser jwtParser = Jwts.parser().setSigningKey(secretKey);
 
     private Claims generateClaims(User user) {
-        return Jwts.claims().setSubject(user.getUsername());
+        Claims claims = Jwts.claims();
+        claims.setSubject(user.getUsername());
+        claims.put("isAdmin", user.isAdmin());
+        return claims;
     }
 
     public String createToken(User user) {

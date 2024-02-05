@@ -1,5 +1,6 @@
 package WeatherApp.backend.Services;
 
+import WeatherApp.backend.DTOs.UserRegisterDTO;
 import WeatherApp.backend.Persistence.City;
 import WeatherApp.backend.Persistence.User;
 import WeatherApp.backend.Repositories.UserRepository;
@@ -85,5 +86,13 @@ public class UserService {
         user.getFavoriteCities().remove(cityToRemove);
         cityToRemove.getUsers().remove(user);
         userRepository.save(user);
+    }
+
+    public boolean validateRegisterData(UserRegisterDTO userRegisterDTO) {
+        if(userRegisterDTO.getUsername().length() < 3 || userRegisterDTO.getUsername().length() > 32)
+            return false;
+        if(userRegisterDTO.getPassword().length() > 32)
+            return false;
+        return userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword());
     }
 }

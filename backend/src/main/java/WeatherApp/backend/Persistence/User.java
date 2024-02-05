@@ -25,6 +25,9 @@ public class User {
     @Column(name = "hash", nullable = false)
     private String passwordHash;
 
+    @Column(name = "is_admin", nullable = false)
+    private boolean admin;
+
     @ManyToMany
     @JoinTable(
             name = "favorite_cities",

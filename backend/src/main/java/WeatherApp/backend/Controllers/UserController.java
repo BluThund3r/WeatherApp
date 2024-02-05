@@ -1,6 +1,7 @@
 package WeatherApp.backend.Controllers;
 
 import WeatherApp.backend.DTOs.UserAuthDTO;
+import WeatherApp.backend.DTOs.UserRegisterDTO;
 import WeatherApp.backend.Persistence.User;
 import WeatherApp.backend.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,11 @@ public class UserController
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(
-            @RequestBody UserAuthDTO userRegisterDTO
+            @RequestBody UserRegisterDTO userRegisterDTO
     ) {
+        if(!userService.validateRegisterData(userRegisterDTO))
+            return new ResponseEntity<>("Invalid data", HttpStatus.BAD_REQUEST);
+
         try {
             userService.register(userRegisterDTO.getUsername(), userRegisterDTO.getPassword());
         }
@@ -61,6 +65,8 @@ public class UserController
     public ResponseEntity<?> getMyFavoriteCities(
             @RequestHeader("Authorization") String token
     ) {
+        if(token == null || token.isEmpty())
+            return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
         try {
             User user = userService.getUserFromToken(token);
             return new ResponseEntity<>(user.getFavoriteCities().stream().toList(), HttpStatus.OK);
@@ -78,6 +84,8 @@ public class UserController
             @RequestHeader("Authorization") String token,
             @PathVariable Integer cityId
     ) {
+        if(token == null || token.isEmpty())
+            return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
         try {
             User user = userService.getUserFromToken(token);
             userService.addFavoriteCity(user, cityId);
@@ -99,6 +107,8 @@ public class UserController
             @RequestHeader("Authorization") String token,
             @PathVariable Integer cityId
     ) {
+        if(token == null || token.isEmpty())
+            return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
         try {
             User user = userService.getUserFromToken(token);
             userService.removeFavoriteCity(user, cityId);

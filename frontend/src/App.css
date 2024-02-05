@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
+:root {
+  --navbar-width: 10vw;
+  --default-background-color: rgb(50, 50, 50);
+  --default-text-color: rgb(218, 218, 218);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.two-column-view {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: max(var(--navbar-width), 100px) 1fr;
+  z-index: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.default-background {
+  color: var(--default-text-color);
+  height: auto;
+  z-index: -100;
+  position: relative;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.default-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--default-background-color);
+  background: url("./images/cloudy_background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.default-background * {
+  position: relative;
+  z-index: 1;
 }
