@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import { refreshUserLoggedIn } from "./state/user/userSlice";
 import { isUserAdmin, isUserLoggedIn } from "./utils/userUtils";
 import { AdminDashboard } from "./views/admin/AdminDashboard";
+import * as Unicons from "@iconscout/react-unicons";
+import SearchBar from "./components/searchBar/SearchBar";
 
 interface PrivateRouteProps {
   children: React.ReactElement;

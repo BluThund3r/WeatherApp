@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class CityService {
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
     @Autowired
     public CityService(CityRepository cityRepository) {
@@ -25,7 +25,7 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public List<City> getCityStartingWith(String name) {
+    public List<City> getCitiesStartingWith(String name) {
         return cityRepository.findByNameStartingWith(name);
     }
 

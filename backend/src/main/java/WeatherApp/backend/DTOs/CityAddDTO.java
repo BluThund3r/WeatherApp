@@ -13,17 +13,21 @@ public class CityAddDTO {
     private String country;
     private String state;
     @JsonProperty("coord")
-    private Coords coords;
+    private Coords coords = new Coords();
 
     public static class Coords {
         @JsonProperty("lon")
-        private Double longitude;
+        public Double longitude;
 
         @JsonProperty("lat")
-        private Double latitude;
+        public Double latitude;
     }
 
     public CityAddDTO() {}
+
+    public CityAddDTO(City city) {
+        this(city.getId(), city.getName(), city.getCountry(), city.getState(), 0.0, 0.0);
+    }
 
     public CityAddDTO(
             Integer id,

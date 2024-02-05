@@ -102,7 +102,7 @@ export default function Signup() {
         className="padded-fit-wrapper centering-wrapper"
         style={{ width: "30%" }}
       >
-        <h1>Sign Up</h1>
+        <h1 className="text-4xl font-bold">Sign Up</h1>
         <Form fields={fields} setFormData={setFormData} />
         <Button
           variant="contained"

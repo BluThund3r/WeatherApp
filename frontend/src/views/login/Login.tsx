@@ -78,7 +78,7 @@ export default function Login({ setIsLoggedIn, setIsAdmin }: LoginProps) {
         className="padded-fit-wrapper centering-wrapper"
         style={{ width: "30%" }}
       >
-        <h1>Log In</h1>
+        <h1 className="text-4xl font-bold">Log In</h1>
         <Form fields={fields} setFormData={setFormData} />
         <Button
           variant="contained"
