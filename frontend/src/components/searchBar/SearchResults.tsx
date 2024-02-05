@@ -1,11 +1,11 @@
 import React from "react";
-import { SearchResultType } from "./SearchBar";
+import CityInfo from "../../interfaces/CityInfo";
 
-type Props = { searchResults: SearchResultType[] };
+type Props = { searchResults: CityInfo[] };
 
 function SearchResults({ searchResults }: Props) {
-  const handleClick = (id: number) => {
-    console.log("clicked", id);
+  const handleClick = (city: CityInfo) => {
+    console.log("clicked", city.name);
   };
 
   return (
@@ -14,7 +14,7 @@ function SearchResults({ searchResults }: Props) {
         <p
           key={index}
           className="p-1 text-black hover:cursor-pointer hover:bg-slate-300"
-          onClick={() => handleClick(result.id)}
+          onClick={() => handleClick(result)}
         >
           {result.name}
           {result.state && `, ${result.state}`}

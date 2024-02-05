@@ -2,23 +2,13 @@ import React, { useEffect, useState } from "react";
 import { UilSearch, UilLocationPoint } from "@iconscout/react-unicons";
 import SearchResults from "./SearchResults";
 import { apiDomainName } from "../../configConsts";
+import CityInfo from "../../interfaces/CityInfo";
 
 type Props = {};
 
-export interface SearchResultType {
-  name: string;
-  id: number;
-  country: string;
-  state: string;
-  coord: {
-    lat: number;
-    lon: number;
-  };
-}
-
 function SearchBar({}: Props) {
   const [city, setCity] = useState("");
-  const [searchResults, setSearchResults] = useState<SearchResultType[]>([]);
+  const [searchResults, setSearchResults] = useState<CityInfo[]>([]);
 
   const handleSearchClick = () => {
     console.log("search clicked");
@@ -41,7 +31,7 @@ function SearchBar({}: Props) {
         );
         const data = await response.json();
 
-        if (response.ok) setSearchResults(data as SearchResultType[]);
+        if (response.ok) setSearchResults(data as CityInfo[]);
         else console.error("Error fetching search results", response, data);
       } catch (error) {
         console.error(error);
