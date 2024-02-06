@@ -21,10 +21,6 @@ export default function Navbar() {
     },
   ];
 
-  const cityDetailsBasePath = "/city-details";
-
-  const favoriteCities = [{ label: "New York", path: "/new-york", show: true }];
-
   const navBarButtonsBottom = [
     {
       label: "Login",
@@ -67,23 +63,22 @@ export default function Navbar() {
       </div>
       {user.loggedIn ? (
         <div className="buttons-wrapper">
-          <span style={{ fontWeight: "bold", color: "white" }}>
-            Favorite Cities
-          </span>
-          {favoriteCities.map((button, index) => {
-            if (button.show)
-              return (
-                <Button
-                  key={index}
-                  variant="text"
-                  className="navbar-item"
-                  onClick={() => handleClick(button.path)}
-                >
-                  {button.label}
-                </Button>
-              );
-            return null;
+          <span className="font-bold text-white">Favorite Cities</span>
+          {user.favoriteCities.map((city, index) => {
+            return (
+              <Button
+                key={index}
+                variant="text"
+                className="navbar-item"
+                onClick={() => navigate(`/weather/${city.id}`)}
+              >
+                {city.name}
+              </Button>
+            );
           })}
+          {user.favoriteCities.length === 0 ? (
+            <p className="text-red-600">No favorite cities</p>
+          ) : null}
         </div>
       ) : null}
       <div className="buttons-wrapper">

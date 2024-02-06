@@ -5,7 +5,11 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
-import { LoginResponse, login } from "../../state/user/userSlice";
+import {
+  LoginResponse,
+  getUserFavoriteCities,
+  login,
+} from "../../state/user/userSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { isUserAdmin } from "../../utils/userUtils";
 
@@ -61,6 +65,7 @@ export default function Login({ setIsLoggedIn, setIsAdmin }: LoginProps) {
       if (result.payload.token !== "") {
         setIsLoggedIn(true);
         setIsAdmin(isUserAdmin(result.payload.token));
+        dispatch(getUserFavoriteCities());
         navigate("/");
       }
     });

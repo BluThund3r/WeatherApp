@@ -1,8 +1,11 @@
 package WeatherApp.backend.Controllers;
 
+import WeatherApp.backend.DTOs.CityAddDTO;
 import WeatherApp.backend.DTOs.UserAuthDTO;
 import WeatherApp.backend.DTOs.UserRegisterDTO;
+import WeatherApp.backend.Persistence.City;
 import WeatherApp.backend.Persistence.User;
+import WeatherApp.backend.Services.CityService;
 import WeatherApp.backend.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +20,12 @@ import java.util.NoSuchElementException;
 public class UserController
 {
     private final UserService userService;
+    private final CityService cityService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CityService cityService) {
         this.userService = userService;
+        this.cityService = cityService;
     }
 
     @PostMapping("/register")
@@ -89,6 +94,7 @@ public class UserController
         try {
             User user = userService.getUserFromToken(token);
             userService.addFavoriteCity(user, cityId);
+            return ResponseEntity.ok(new CityAddDTO(cityService.getCityById(cityId)));
         }
         catch(NoSuchElementException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -99,7 +105,6 @@ public class UserController
         catch(Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/removeFavoriteCity/{cityId}")

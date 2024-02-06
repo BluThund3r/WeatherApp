@@ -66,7 +66,7 @@ function SearchBar({}: Props) {
             value={cityLocal}
             onChange={handleChange}
             type="text"
-            placeholder="Type in a cityLocal name..."
+            placeholder="Type in a city name..."
             className="text-xl font-light text-black p-2 w-full shadow-xl focus:outline-none capitalize placeholder:lowercase"
           />
           <SearchResults

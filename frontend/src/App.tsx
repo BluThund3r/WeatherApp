@@ -17,7 +17,10 @@ import "./components/navbar/style.css";
 import { Toaster } from "sonner";
 import { AppDispatch } from "./state/store";
 import { useDispatch } from "react-redux";
-import { refreshUserLoggedIn } from "./state/user/userSlice";
+import {
+  getUserFavoriteCities,
+  refreshUserLoggedIn,
+} from "./state/user/userSlice";
 import { isUserAdmin, isUserLoggedIn } from "./utils/userUtils";
 import { AdminDashboard } from "./views/admin/AdminDashboard";
 import * as Unicons from "@iconscout/react-unicons";
@@ -49,6 +52,7 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshUserLoggedIn());
+    dispatch(getUserFavoriteCities());
   }, [dispatch]);
 
   return (
