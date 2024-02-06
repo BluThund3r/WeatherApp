@@ -40,7 +40,7 @@ function TimeAndLocation({ location, localTime }: Props) {
       </h1>
       <h2 className="text-2xl">
         {days[localTime.getDay()]}, {localTime.getDate()}{" "}
-        {months[localTime.getMonth()]} {localTime.getFullYear()} | Local Time:{" "}
+        {months[localTime.getMonth()]} {localTime.getFullYear()} | Local Time{" "}
         {localTime.getHours()}:{localTime.getMinutes() < 10 ? "0" : ""}
         {localTime.getMinutes()}
       </h2>

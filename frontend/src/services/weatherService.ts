@@ -1,11 +1,13 @@
 import {
+  anotherApiKey,
   apiDomainName,
   weatherApiKey,
   weatherApiPath25,
+  weatherApiPathDaily,
 } from "../configConsts";
 import CityInfo from "../interfaces/CityInfo";
 
-type UnitType = "metric" | "imperial" | "standard";
+export type UnitType = "metric" | "imperial" | "standard";
 
 export function getWeatherByCityId(cityId: number, units: UnitType = "metric") {
   return fetch(
@@ -31,6 +33,16 @@ export function getWeatherByCoords(
           return getWeatherByCityId(city.id, units);
         });
     });
+}
+
+export function getForecastByCoords(
+  lat: number,
+  long: number,
+  units: UnitType = "metric"
+) {
+  return fetch(
+    `${weatherApiPathDaily}?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&appid=${anotherApiKey}&units=${units}`
+  ).then((response) => response.json());
 }
 
 export function getWeatherByCurrentLocation(units: UnitType = "metric") {
