@@ -67,3 +67,17 @@ export function getCityByCurrentLocation(): Promise<CityInfo | any> {
     });
   });
 }
+
+export function getLocalTime(timezoneOffsetInSeconds: number) {
+  let date = new Date();
+  let utcDate = Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds()
+  );
+
+  return new Date(utcDate + timezoneOffsetInSeconds);
+}
