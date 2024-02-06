@@ -22,6 +22,7 @@ import { isUserAdmin, isUserLoggedIn } from "./utils/userUtils";
 import { AdminDashboard } from "./views/admin/AdminDashboard";
 import * as Unicons from "@iconscout/react-unicons";
 import SearchBar from "./components/searchBar/SearchBar";
+import WeatherView from "./views/weatherView/WeatherView";
 
 interface PrivateRouteProps {
   children: React.ReactElement;
@@ -98,6 +99,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/weather/:id" element={<WeatherView />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

@@ -3,10 +3,12 @@ package WeatherApp.backend.Services;
 import WeatherApp.backend.DTOs.CityAddDTO;
 import WeatherApp.backend.Persistence.City;
 import WeatherApp.backend.Repositories.CityRepository;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CityService {
@@ -40,4 +42,21 @@ public class CityService {
     public void saveCity(City city) {
         cityRepository.save(city);
     }
+
+    public City getCityByCoordinates(Double latitude, Double longitude)
+            throws NoSuchElementException {
+        City city = cityRepository.findByCoordinates(latitude, longitude);
+        if(city == null)
+            throw new NoSuchElementException();
+        return city;
+    }
+
+//    public void updateCities() {
+//        List<City> allCities = cityRepository.findAll();
+//        allCities.forEach(city -> {
+//            city.setLatitude(city.getCoordinates().a);
+//            city.setLongitude(city.getCoordinates().b);
+//            cityRepository.save(city);
+//        });
+//    }
 }

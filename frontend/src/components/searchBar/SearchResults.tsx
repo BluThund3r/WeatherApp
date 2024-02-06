@@ -1,11 +1,19 @@
 import React from "react";
 import CityInfo from "../../interfaces/CityInfo";
+import { useDispatch } from "react-redux";
+import { setCity } from "../../state/cities/citiesSlice";
+import { useNavigate } from "react-router-dom";
 
-type Props = { searchResults: CityInfo[] };
+type Props = { searchResults: CityInfo[]; clearSearchBar: () => void };
 
-function SearchResults({ searchResults }: Props) {
+function SearchResults({ searchResults, clearSearchBar }: Props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleClick = (city: CityInfo) => {
-    console.log("clicked", city.name);
+    clearSearchBar();
+    dispatch(setCity(city));
+    navigate(`/weather/${city.id}`);
   };
 
   return (

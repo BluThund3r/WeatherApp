@@ -26,7 +26,7 @@ public class CityAddDTO {
     public CityAddDTO() {}
 
     public CityAddDTO(City city) {
-        this(city.getId(), city.getName(), city.getCountry(), city.getState(), 0.0, 0.0);
+        this(city.getId(), city.getName(), city.getCountry(), city.getState(), city.getLatitude(), city.getLongitude());
     }
 
     public CityAddDTO(
@@ -51,7 +51,8 @@ public class CityAddDTO {
                 name,
                 country,
                 state,
-                new Pair<>(coords.latitude, coords.longitude),
+                coords.latitude,
+                coords.longitude,
                 new HashSet<>()
         );
     }

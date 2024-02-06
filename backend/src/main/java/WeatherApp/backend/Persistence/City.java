@@ -28,8 +28,11 @@ public class City {
     @Column(name = "state")
     private String state;
 
-    @Column(name="coordinates", nullable = false)
-    private Pair<Double, Double> coordinates;
+    @Column(name="latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
 
     @ManyToMany(mappedBy = "favoriteCities")
     @JsonIgnore
