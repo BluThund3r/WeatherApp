@@ -56,7 +56,7 @@ function WeatherView() {
         const data = await response.json();
         if (response.ok) {
           setCityInfo(data as CityInfo);
-          const weatherData = await getWeatherByCityId(cityId);
+          const weatherData = await getWeatherByCityId(cityId, units);
           setWeatherInfo(weatherData);
           toast.success("Successfully fetched city info and weather");
           setLoading(false);

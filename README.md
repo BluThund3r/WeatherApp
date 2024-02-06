@@ -10,7 +10,7 @@
 
 TODO:
 
-- [ ] Termina pagina weatherView
-- [ ] Fa weatherCards
+- [x] Termina pagina weatherView
+- [ ] Fa Home page
 - [ ] Implementeaza favorite cities management
 - [ ] Implementeaza pagina de admin

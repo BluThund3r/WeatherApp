@@ -1,5 +1,4 @@
 import React from "react";
-import CityInfo from "../../interfaces/CityInfo";
 import { UnitType } from "../../services/weatherService";
 import {
   UilTemperature,
@@ -25,7 +24,7 @@ function WeatherDetails({ weatherInfo, units }: Props) {
     {
       icon: <UilCloud style={{ display: "inline" }} className="mr-1" />,
       title: "Clouds",
-      value: `${parseInt(weatherInfo.clouds.all)}°${unitsMapping.degrees}`,
+      value: `${parseInt(weatherInfo.clouds.all)}%`,
     },
     {
       icon: <UilTemperature style={{ display: "inline" }} className="mr-1" />,
