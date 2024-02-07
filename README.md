@@ -13,7 +13,11 @@
 
 ### Scopul proiectului
 
-Proiectul a fost realizat pentru cursul de _Frontend Avansat_ de la **Facultatea de Matematica si Informatica** din cadrul **Universitatii din Bucuresti**. <br />
+Proiectul a fost realizat pentru cursul de _Frontend Avansat_ de la **Facultatea de Matematica si Informatica** din cadrul **Universitatii din Bucuresti**.
+
+### Demo Video
+
+Puteti gasi un demo video al aplicatiei [aici](https://youtu.be/0yJkJ6UyRHU).
 
 #### Puncte care trebuie atinse
 
