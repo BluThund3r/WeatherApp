@@ -63,22 +63,28 @@ export default function Navbar() {
       </div>
       {user.loggedIn ? (
         <div className="buttons-wrapper">
-          <span className="font-bold text-white">Favorite Cities</span>
-          {user.favoriteCities.map((city, index) => {
-            return (
-              <Button
-                key={index}
-                variant="text"
-                className="navbar-item"
-                onClick={() => navigate(`/weather/${city.id}`)}
-              >
-                {city.name}
-              </Button>
-            );
-          })}
-          {user.favoriteCities.length === 0 ? (
-            <p className="text-red-600">No favorite cities</p>
-          ) : null}
+          <span className="text-xl font-extrabold text-white">
+            Favorite Cities
+          </span>
+          <div className="h-fit max-h-96 overflow-x-scroll">
+            {user.favoriteCities.map((city, index) => {
+              return (
+                <Button
+                  key={index}
+                  variant="text"
+                  className="navbar-item"
+                  onClick={() => navigate(`/weather/${city.id}`)}
+                >
+                  {city.name.length <= 14
+                    ? city.name
+                    : city.name.slice(0, 11) + "..."}
+                </Button>
+              );
+            })}
+            {user.favoriteCities.length === 0 ? (
+              <p className="text-red-600">No favorite cities</p>
+            ) : null}
+          </div>
         </div>
       ) : null}
       <div className="buttons-wrapper">

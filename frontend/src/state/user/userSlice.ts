@@ -62,19 +62,32 @@ const userSlice = createSlice({
         state.username = action.payload.username;
         state.token = action.payload.token;
         state.isAdmin = isUserAdmin(action.payload.token);
-        state.favoriteCities = action.payload.favoriteCities;
+        state.favoriteCities = action.payload.favoriteCities.sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        });
       }
     );
     builder.addCase(
       getUserFavoriteCities.fulfilled,
       (state, action: PayloadAction<CityInfo[]>) => {
-        state.favoriteCities = action.payload;
+        state.favoriteCities = action.payload.sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        });
       }
     );
     builder.addCase(
       addFavoriteCity.fulfilled,
       (state, action: PayloadAction<CityInfo>) => {
         state.favoriteCities.push(action.payload);
+        state.favoriteCities.sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        });
       }
     );
     builder.addCase(
@@ -83,6 +96,11 @@ const userSlice = createSlice({
         state.favoriteCities = state.favoriteCities.filter(
           (city) => city.id !== action.payload
         );
+        state.favoriteCities.sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        });
       }
     );
   },

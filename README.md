@@ -12,5 +12,6 @@ TODO:
 
 - [x] Termina pagina weatherView
 - [ ] Fa Home page
-- [ ] Implementeaza favorite cities management
+- [x] Implementeaza favorite cities management
+- [x] Fa cumva cu limita de orase favorite
 - [ ] Implementeaza pagina de admin
