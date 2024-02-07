@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -49,6 +50,25 @@ public class UserService {
 
         String hashedPass = BCrypt.hashpw(password, BCrypt.gensalt());
         userRepository.save(new User(username, hashedPass));
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUserById(Integer id)
+            throws NoSuchElementException, IllegalArgumentException {
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null)
+            throw new NoSuchElementException("User not found");
+
+        if(user.isAdmin())
+            throw new IllegalArgumentException("Cannot delete an admin");
+
+        for(City city : user.getFavoriteCities())
+            city.getUsers().remove(user);
+        cityService.saveAllCities(user.getFavoriteCities());
+        userRepository.deleteById(id);
     }
 
     public User getUserFromToken(String token)
@@ -94,5 +114,9 @@ public class UserService {
         if(userRegisterDTO.getPassword().length() > 32)
             return false;
         return userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword());
+    }
+
+    public boolean isAdminByToken(String token) {
+        return jwtUtils.resolveClaims(token).get("isAdmin", Boolean.class);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 public class CityService {
@@ -49,6 +50,10 @@ public class CityService {
         if(city == null)
             throw new NoSuchElementException();
         return city;
+    }
+
+    public void saveAllCities(Set<City> favoriteCities) {
+        cityRepository.saveAll(favoriteCities);
     }
 
 //    public void updateCities() {
